@@ -1157,6 +1157,15 @@ public class RemoteServer implements Server
                   params,
                   requestCallback);
    }
+   
+   @Override
+   public void previewSql(String command,
+                          ServerRequestCallback<Void> requestCallback)
+   {
+      JSONArray params = new JSONArray();
+      params.set(0, new JSONString(command));
+      sendRequest(RPC_SCOPE, PREVIEW_SQL, params, requestCallback);
+   }
 
    public void editCompleted(String text,
                              ServerRequestCallback<Void> requestCallback)
@@ -3739,6 +3748,8 @@ public class RemoteServer implements Server
       sendRequest(RPC_SCOPE, "plots_create_rpubs_html", params, callback);
    }
    
+   
+   
    public void previewHTML(HTMLPreviewParams params,
                            ServerRequestCallback<Boolean> callback)
    {
@@ -5386,6 +5397,8 @@ public class RemoteServer implements Server
       params.set(0, new JSONString(code));
       sendRequest(RPC_SCOPE, CONNECTION_TEST, params, callback);
    }
+   
+   
 
    @Override
    public void launchEmbeddedShinyConnectionUI(String packageName, 
@@ -5694,6 +5707,8 @@ public class RemoteServer implements Server
    private static final String DOWNLOAD_DATA_FILE = "download_data_file";
    private static final String GET_DATA_PREVIEW = "get_data_preview";
    private static final String GET_OUTPUT_PREVIEW = "get_output_preview";
+   
+   private static final String PREVIEW_SQL = "preview_sql";
 
    private static final String EDIT_COMPLETED = "edit_completed";
    private static final String CHOOSE_FILE_COMPLETED = "choose_file_completed";
